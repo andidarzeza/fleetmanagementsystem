@@ -1,0 +1,57 @@
+
+<span class = "title link" routerLink='/companies' style="margin-left: 10px" matTooltip="All Companies">Companies</span>
+<span class = "title" style="color:white" matTooltip="Company Name"> / {{companyName}}</span>
+<br>
+<div style="padding-left: 10px">
+<button mat-raised-button (click)="goToDrivers()">View All Drivers</button></div>
+<!--ADD FLEET BUTTON-->
+<button style=" position: absolute; top: 20%; left: 96%; z-index: 100;" mat-mini-fab color="primary"
+        matTooltip="Add Fleet"(click)="openPopUp()"><mat-icon>add</mat-icon></button>
+<!--FILTER TABLE-->
+<mat-form-field fxLayoutAlign="center center">
+    <input matInput type="text" #filter (keyup)="doFilter()" placeholder="Filter">
+</mat-form-field>
+<!--MAT TABLE-->
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+        <ng-container matColumnDef="companyID">
+            <th mat-header-cell *matHeaderCellDef  mat-sort-header> Company </th>
+            <td mat-cell *matCellDef="let fleet"> {{companyName}} </td>
+        </ng-container>
+         CompanyName Column
+        <ng-container matColumnDef="fleetName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Fleet  </th>
+            <td mat-cell *matCellDef="let fleet"> {{fleet.fleetName}} </td>
+        </ng-container>
+        <!--   Button option Column-->
+        <ng-container matColumnDef="options">
+            <th mat-header-cell *matHeaderCellDef> Options</th>
+            <th mat-cell *matCellDef="let fleet">
+                <button mat-icon-button matTooltip="Go to Vehicles" (click)="goToVehicles(fleet)"><mat-icon >launch</mat-icon> </button>
+                <button mat-icon-button matTooltip="Delete Fleet" (click)="deleteFleet(fleet)"><mat-icon>delete_outline</mat-icon></button>
+            </th>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <!--  TABLE PAGINATOR-->
+    <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+</div>
+
+<!--TEMPLATE FOR  CREATING NEW FlEET POPUP-->
+<ng-template #newFleet>
+    <div style = "width: 250px; float: left; padding-left: 20px">
+        <mat-dialog-content><h4>Fill in </h4>
+            <form [formGroup]="fleetGroup"  (ngSubmit)="addFleet()">
+                <mat-form-field>
+                    <input formControlName="fleetName" matInput required placeholder="Fleet" >
+                </mat-form-field>
+                <button mat-raised-button color="primary" type="submit" [disabled]="!fleetGroup.valid">Submit</button>
+            </form>
+        </mat-dialog-content>
+        <mat-dialog-actions>
+            <button mat-raised-button color="warn" (click)="closeModal()">Close</button>
+        </mat-dialog-actions>
+    </div>
+</ng-template>

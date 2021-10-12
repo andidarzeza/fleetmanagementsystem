@@ -1,0 +1,23 @@
+<div fxLayout="column" fxLayoutAlign="space-around center" fxLayoutGap="20px"><h2 >Register </h2></div>
+<mat-card fxLayout="center center" class="mat-style" >
+  <section class="signup-form">
+    <form [formGroup]="formGroup" fxLayout="column"
+          fxLayoutAlign="center center" fxLayoutGap="10px" (ngSubmit)="register()">
+      <mat-form-field hintLabel="E-mail example: firstname.secondname@examle.com">
+        <input
+                type=" email" matInput placeholder="Your email"  name="email" required formControlName="username">
+      </mat-form-field>
+      <mat-form-field hintLabel="should be at least 6 characters long">
+        <input type="password" matInput placeholder="Your password"
+               name="password" required minlength="6" formControlName="password">
+        <mat-error>Password missing</mat-error>
+      </mat-form-field>
+      <div fxLayoutGap="10px">
+        <button type="submit" mat-raised-button color="primary" [disabled]="!formGroup.valid">Register
+        </button></div>
+      <div> Already registered? Click
+      <a style="color: #dab226" routerLink='/login'>here</a></div>
+    </form>
+  </section>
+
+</mat-card>

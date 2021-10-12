@@ -1,0 +1,28 @@
+<div layout-gt-xs="row" mat-elevation-z8>
+  <mat-card class="assignedDriver-container">
+    <mat-card-title-group>
+      <mat-card-title class="text-xxl">Vehicle Info</mat-card-title>
+      <mat-card-subtitle>Vehicle Name : {{vehicle.vehicleName}}</mat-card-subtitle>
+      <mat-card-subtitle>Vehicle Type : {{vehicle.type}}</mat-card-subtitle>
+      <mat-card-subtitle>Fuel : {{vehicle.fuel}}</mat-card-subtitle>
+
+    </mat-card-title-group>
+  </mat-card>
+</div>
+
+<div style="padding-top: 10px"  layout-gt-xs="row" *ngIf="data.driverID!==''">
+  <mat-card class="assignedDriver-container">
+    <mat-card-title-group>
+      <mat-card-title class="text-xxl">Vehicle Assigned To : {{driver.firstName + " " + driver.lastName}}</mat-card-title>
+      <mat-card-subtitle>First Name : {{driver.firstName}}</mat-card-subtitle>
+      <mat-card-subtitle>Last Name : {{driver.lastName}}</mat-card-subtitle>
+      <mat-card-subtitle>Age : {{driver.driverAge}}</mat-card-subtitle>
+      <mat-card-subtitle>Address : {{driver.driverAddress}}</mat-card-subtitle>
+      <img [src]="driver.profilePhoto" style="width:150px;height:150px;border-radius: 50%">
+    </mat-card-title-group>
+  </mat-card>
+</div>
+
+<div class="message" *ngIf="!data.driverID!==''">
+  No Driver assigned!
+</div>

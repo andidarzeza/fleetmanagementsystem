@@ -1,0 +1,24 @@
+<div layout-gt-xs="row" *ngFor="let history of histories">
+  <mat-card class="driver-container">
+    <mat-card-title-group>
+      <mat-card-title class="text-xxl">History Displayed</mat-card-title>
+      <mat-card-subtitle>Department: {{history.where}}</mat-card-subtitle>
+      <mat-card-subtitle>Date: {{history.date|date:'short'}}</mat-card-subtitle>
+      <mat-card-subtitle>Action : {{history.action}}</mat-card-subtitle>
+    </mat-card-title-group>
+  </mat-card>
+</div>
+
+<!--<span  class="title"> Displayed History </span>-->
+<!--<div style="padding-left: 190px;padding-top: 30px">-->
+<!--<div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">-->
+<!--  <div class="example-box" *ngFor="let history of histories" cdkDrag>-->
+<!--    <div class="example-custom-placeholder" *cdkDragPlaceholder></div>-->
+<!--    <p><b>User: </b> {{history.userID}}</p>-->
+<!--    <p><b>Department:</b>  {{history.where}} </p>-->
+<!--    <p><b> Date:</b>  {{history.date|date:'short'}}</p>-->
+<!--    <p><b> Action:</b>  {{history.action}}</p>-->
+<!--  </div>-->
+<!--</div>-->
+<!--</div>-->
+

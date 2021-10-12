@@ -1,0 +1,89 @@
+<span class = "title link" matTooltip="All Companies"
+      routerLink='/companies' style="margin-left: 10px">Companies</span>
+<span class="title"> / </span>
+<span class = "title link" matTooltip="Company Name"
+      [routerLink]="['/companies/' + companyID, {companyName: companyName}]">{{companyName}}</span>
+<span class = "title" style="color:white" matTooltip="Fleet Name"> / {{fleetName}}</span>
+<!--ADD VEHICLE BUTTON-->
+<button style=" position: absolute; top: 20%; left: 96%; z-index: 100;" mat-mini-fab color="primary"
+        matTooltip="Add Vehicle"(click)="openPopUp()"><mat-icon>add</mat-icon></button>
+<!--FILTER TABLE-->
+<mat-form-field fxLayoutAlign="center center">
+  <input matInput type="text" #filter (keyup)="doFilter()" placeholder="Filter">
+</mat-form-field>
+<!--MAT TABLE-->
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+    <!-- Vehicle Column -->
+    <ng-container matColumnDef="vehicleName">
+      <th mat-header-cell *matHeaderCellDef > Vehicle Name</th>
+      <td mat-cell *matCellDef="let vehicle"> {{vehicle.vehicleName}} </td>
+    </ng-container>
+    <ng-container matColumnDef="vehicleType">
+      <th mat-header-cell *matHeaderCellDef > Vehicle Type</th>
+      <td mat-cell *matCellDef="let vehicle"> {{vehicle.type}} </td>
+    </ng-container>
+    <ng-container matColumnDef="vehicleFuel">
+      <th mat-header-cell *matHeaderCellDef > Vehicle Fuel</th>
+      <td mat-cell *matCellDef="let vehicle"> {{vehicle.fuel}} </td>
+    </ng-container>
+    <ng-container matColumnDef="vehicleSpeed">
+      <th mat-header-cell *matHeaderCellDef > Vehicle Speed</th>
+      <td mat-cell *matCellDef="let vehicle"> {{vehicle.speed}} </td>
+    </ng-container>
+    <!--   Button option Column-->
+    <ng-container matColumnDef="options">
+      <th mat-header-cell *matHeaderCellDef> Options</th>
+      <th mat-cell *matCellDef="let vehicle">
+        <button mat-icon-button matTooltip="Vehicles Info" (click)="goToVehicle(vehicle)">
+        <mat-icon>info</mat-icon> </button>
+        <button mat-icon-button matTooltip="Delete Vehicles" (click)="deleteVehicle(vehicle)">
+          <mat-icon>delete_outline</mat-icon></button>
+        <button mat-icon-button matTooltip="Edit Vehicles" (click)="editVehicles(vehicle)"><mat-icon> edit</mat-icon>
+        </button>
+      </th>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <!--  TABLE PAGINATOR-->
+  <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+</div>
+
+<!--TEMPLATE FOR  CREATING NEW VEHICLE POPUP-->
+<ng-template #newVehicle>
+  <mat-dialog-content><h4>Fill in </h4>
+    <form [formGroup]="vehicleGroup"  (ngSubmit)="addVehicle()">
+      <mat-form-field style="width:100%">
+        <input formControlName="vehicleName" matInput required placeholder="Vehicle Name">
+      </mat-form-field>
+      <mat-form-field style="width:100%">
+        <mat-label>Vehicle Type</mat-label>
+        <mat-select formControlName="vehicleType">
+          <mat-option *ngFor="let type of types" [value]="type">
+            {{type}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field style="width:100%">
+        <mat-label>Select Driver</mat-label>
+        <mat-select formControlName="driver">
+          <mat-option *ngFor="let driver of drivers" [value]="driver.driverID">
+            {{driver.firstName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <input formControlName="vehicleFuel" matInput type="number" required placeholder="Vehicle Fuel">
+      </mat-form-field>
+      <mat-form-field style="margin-left:25px">
+        <input formControlName="vehicleSpeed" matInput type="number" required placeholder="Vehicle Speed">
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!vehicleGroup.valid">Submit</button>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-raised-button color="warn" (click)="closeModal()">Close</button>
+  </mat-dialog-actions>
+</ng-template>

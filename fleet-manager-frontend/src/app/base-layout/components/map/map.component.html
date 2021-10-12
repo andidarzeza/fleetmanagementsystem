@@ -1,0 +1,31 @@
+<div style="margin-top: -15px;margin-left: 20px;margin-right: 20px;">
+  <div class="search">
+
+    <mat-form-field style="pointer-events: auto;width:15% !important">
+      <mat-label>{{types[0]}}</mat-label>
+      <mat-select (selectionChange)="onDepartmentChange($event)">
+        <mat-option *ngFor="let type of types"  [value]="type" #departments>
+          {{type}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    <mat-form-field style="pointer-events: auto;width:76% !important">
+      <mat-label>All</mat-label>
+      <mat-select (selectionChange)="onItemChange($event)">
+        <mat-option *ngFor="let department of _departments"  [value]="department" #item>
+          {{department}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-raised-button style="pointer-events: auto; width: 5%;height: 45px;" (click)="filter()">Filter</button>
+
+  </div>
+
+  <div id="map">
+    <button mat-raised-button color="primary" class="leaflet-right leaflet-top">Draw Zone</button>
+  </div>
+</div>
+

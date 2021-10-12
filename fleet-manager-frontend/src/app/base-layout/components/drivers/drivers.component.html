@@ -1,0 +1,48 @@
+<!--ADD BUTTON-->
+<button style=" position: absolute; top: 10%; left: 96%; z-index: 100;" mat-mini-fab color="primary"
+matTooltip="Add Driver"(click)="openPopUp()"><mat-icon>add</mat-icon></button>
+<!--DRIVERS LIST DISPLAYED-->
+<div layout-gt-xs="row" *ngFor="let driver of drivers">
+  <mat-card class="driver-container">
+    <mat-card-actions style="float: right"> <button mat-icon-button (click)="deleteDriver(driver)">
+      <mat-icon>delete</mat-icon></button></mat-card-actions>
+    <mat-card-title-group>
+      <mat-card-title class="text-xxl">Driver Data</mat-card-title>
+      <mat-card-subtitle>First Name : {{driver.firstName}}</mat-card-subtitle>
+      <mat-card-subtitle>Last Name : {{driver.lastName}}</mat-card-subtitle>
+      <mat-card-subtitle>Age : {{driver.driverAge}}</mat-card-subtitle>
+      <mat-card-subtitle>Address : {{driver.driverAddress}}</mat-card-subtitle>
+        <img [src]="driver.profilePhoto" style="width:150px;height:150px;border-radius: 50%">
+    </mat-card-title-group>
+  </mat-card>
+</div>
+<!--POPUP TO ADD DRIVER-->
+<ng-template #newDriver>
+<div  style="width:300px; float:left; padding-top: 70px; padding-left: 30px">
+  <img [src]= "uploadedImage" style="max-width: 180px;max-height: 180px;
+   min-width: 180px;min-height: 180px;border-radius: 50%">
+  <input type="file"  #image (change)="onFileChanged($event)" >
+</div>
+<div style="width:250px; float:right;">
+  <mat-dialog-content><h4>Fill in </h4>
+        <form [formGroup]="driverGroup"  (ngSubmit)="addDriver()">
+          <mat-form-field >
+            <input formControlName="firstName" matInput required placeholder="First Name">
+          </mat-form-field>
+          <mat-form-field>
+            <input formControlName="lastName" matInput  required placeholder="Last Name">
+          </mat-form-field>
+          <mat-form-field >
+            <input formControlName="driverAge" matInput type="number" required placeholder="Age">
+          </mat-form-field>
+          <mat-form-field>
+            <input formControlName="driverAddress" matInput  required placeholder="Address">
+          </mat-form-field>
+          <button mat-raised-button color="primary" type="submit" [disabled]="!driverGroup.valid ||image.value==''">Submit</button>
+        </form>
+      </mat-dialog-content>
+      <mat-dialog-actions>
+        <button mat-raised-button color="warn" (click)="closeModal()">Close</button>
+      </mat-dialog-actions>
+</div>
+</ng-template>
